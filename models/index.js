@@ -7,3 +7,9 @@ MONGOOSE.connect(process.env.MONGODB_URI || 'mongodb://localhost/ppe_db', {
 })
 
 module.exports.User = require('./user')
+module.exports.Clinic = require('./clinic')
+module.exports.Product = require('./product')
+module.exports.ProductOrder = require('./productOrder')
+module.exports.Material = require('./material')
+module.exports.MaterialOrder = require('./MaterialOrder')
+module.exports.DailyTotal = require('./dailyTotal')
