@@ -24,6 +24,8 @@ APP.use('/auth', EXPRESS_JWT({
 }).require('./controllers/auth'));
 // protected routes
 
+
+// port set up
 APP.listen(process.env.PORT, () => {
     console.log(`Keeping it ${process.env.PORT}`)
     ROWDY_RESULTS.print()
