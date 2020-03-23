@@ -2,36 +2,7 @@ const MONGOOSE = require('mongoose')
 const DB = require('../../models')
 
 let firstNames = ['Allie', 'Bob', 'Cathy', 'Devon', 'Edgar', 'Frank', 'Gilda', 'Harriet', 'Ivar']
-// let usernames = []
-// firstNames.forEach(name => {
-//     usernames.push(`${name.toLowerCase()}123`)
-// })
-// let passwords = []
-// firstNames.forEach((name, index) => {
-//     passwords.push('password' + index)
-// })
-// let emails = []
-// firstNames.forEach(name => {
-//     emails.push(`${name}123@gmail.com`)
-// })
-// let addresses = []
-// lastNames.forEach(name => {
-//     addresses.push(`123 ${name} St.`)
-// })
-// let city = 'Seattle'
-// let state = 'WA'
-// let zips = []
-// firstNames.forEach(name => {
-//     zips.push(`${Math.floor(Math.random() * 100000)}-${Math.floor(Math.random() * 10000)}`)
-// })
 let regionNames = ['north', 'south', 'east', 'west']
-// let regions = []
-// firstNames.forEach(name => {
-//     regions.push(regionNames[(Math.floor(Math.random() * regionNames.length))])
-// })
-
-let booleans = [true, false]
-
 
 
 let data = firstNames.map((name, index) => ({
