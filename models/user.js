@@ -37,7 +37,7 @@ const userSchema = new MONGOOSE.Schema({
         required: [true, 'state is required']
     },
     zipcode: {
-        type: Number,
+        type: String,
         required: [true, 'zipcode is required']
     },
     region: {
