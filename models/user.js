@@ -47,20 +47,28 @@ const userSchema = new MONGOOSE.Schema({
     },
     // not required, set initial value to false on front end
     isProducer: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     isProdLead: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     isClinic: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     isAdmin: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     isDriver: {
         type: Boolean,
         required: true
+    },
+    inventory: {
+        type: Number,
+        default: 0
     },
     orders: {
         type: MONGOOSE.Schema.Types.ObjectId,
