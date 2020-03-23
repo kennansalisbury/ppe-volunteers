@@ -29,9 +29,34 @@ ROUTER.post('/login', (req, res) => {
     });
 });
 // POST /auth/signup
-// We need to decide how we want this post route to work
-// I'm currently listing ways we can reduce human error
-
+ROUTER.get('/signup', (req, res) => {
+    // use email as the key until we've spoken with Nina
+    // if email exists, user is already in the system. can create a failsafe for this
+    DB.user.findOne({ email: req.body.email })
+    .then(user => {
+        // if user exists, error
+        if (user) {
+            return res.status(409).send({ message: 'Email already in use'});
+        };
+        // if not, create
+        DB.User.create(req.body)
+        .then(newUser => {
+            // sign token to user
+            let token = JWT.sign(newUser.toJSON(), process.env.JWT_SECRET, {
+                expiresIn: 120
+            });
+            res.send({ token });
+        })
+        .catch(err => {
+            console.log(`Error creating new user. ${err}`;
+            res.status(500).send({ message: 'Internal server error.'})
+        });
+    })
+    .catch(err => {
+        console.log(`Error in POST /auth/signup. ${err}`);
+        res.status(503).send({ message: 'Database error.' })
+    });
+});
 // GET /current/user
 ROUTER.get('/current/user', (req, res) => {
     // if user is logged in, req.user should have data
