@@ -48,7 +48,7 @@ ROUTER.post('/signup', (req, res) => {
             res.send({ token });
         })
         .catch(err => {
-            console.log(`Error creating new user. ${err}`;
+            console.log(`Error creating new user. ${err}`);
             res.status(500).send({ message: 'Internal server error.'})
         });
     })

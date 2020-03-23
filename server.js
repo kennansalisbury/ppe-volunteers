@@ -21,9 +21,14 @@ APP.use('/auth', EXPRESS_JWT({
         { url: '/auth/login', methods: ['POST']},
         { url: '/auth/signup', methods: ['POST']}
     ]
-}).require('./controllers/auth'));
+}), require('./controllers/auth'));
 // protected routes
+// APP.use('/producers', EXPRESS_JWT({
+//     secret: process.env.JWT_SECRET
+// }).require('./controllers/producers'))
 
+//open routes for testing
+APP.use('/producers', require('./controllers/producers'));
 
 // port set up
 APP.listen(process.env.PORT, () => {

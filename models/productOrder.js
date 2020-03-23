@@ -23,9 +23,10 @@ const productOrderSchema = new MONGOOSE.Schema({
             {
                 product: {
                     type: MONGOOSE.Schema.Types.ObjectId,
-                    ref: 'Product'
+                    ref: 'Product',
+                    required: [true, 'Product ordered is required']
                 },
-                required: [true, 'Product ordered is required']
+                
             },
             {
                 quantity: {
