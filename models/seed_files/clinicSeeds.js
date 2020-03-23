@@ -1,9 +1,6 @@
 const MONGOOSE = require('mongoose')
 const DB = require('..')
 
-let userIds
-
-
 let clinics = [{
     name: 'Richmond Pediatrics',
     address: '367 NW Richmond Beach Rd',
@@ -38,9 +35,10 @@ let clinics = [{
 }]
 let regionNames = ['north', 'south', 'east', 'west']
 
+
 DB.User.find({isClinic: true})
 .then(users => {
-    userIds = users.map(user => user._id)
+    let userIds = users.map(user => user._id)
 
     let data = clinics.map((clinic, index) => ({
         name: clinic.name,

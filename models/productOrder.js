@@ -18,22 +18,17 @@ const productOrderSchema = new MONGOOSE.Schema({
         type: Boolean,
         required: [true, 'delivery status required']
     },
-    products: {
-        type: [
-            {
-                product: {
-                    type: MONGOOSE.Schema.Types.ObjectId,
-                    ref: 'Product',
-                    required: [true, 'Product ordered is required']
-                },
-                
-            },
-            {
-                quantity: {
-                    type: Number,
-                    required: [true, 'Product quantity is required']
-                }
-            }
-        ]
-    }
+    products: [{
+        product: {
+            type: MONGOOSE.Schema.Types.ObjectId,
+            ref: 'Product',
+            required: [true, 'Product ordered is required']
+        },
+        quantity: {
+            type: Number,
+            required: [true, 'Product quantity is required']
+        }
+    }]
 });
+
+module.exports = MONGOOSE.model('ProductOrder', productOrderSchema);
