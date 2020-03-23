@@ -6,7 +6,6 @@ let regionNames = ['north', 'south', 'east', 'west']
 
 
 let data = firstNames.map((name, index) => ({
-    index,
     firstName: name,
     lastName: `${name}ington`,
     username: `${name.toLowerCase()}123`,
@@ -23,7 +22,8 @@ let data = firstNames.map((name, index) => ({
     isAdmin: index === 7 ? true : false,
     isDriver: index === 8 ? true : false,
     inventory: (index === 0 | index === 1 | index === 2 ) ? Math.floor(Math.random() * 41) : null,
-    orders: null
+    orders: null,
+    isActive: true
 }))
 
-DB.User.create(data)
+DB.User.create(data).then(console.log('users seeded'))

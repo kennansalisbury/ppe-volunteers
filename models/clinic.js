@@ -22,6 +22,11 @@ const clinicSchema = new MONGOOSE.Schema({
         type: String,
         required: [true, 'clinic zipcode required']
     },
+    region: {
+        type: String,
+        // required: [true, 'region is required'] - unsure how we implement this during the auth flow
+        // must be required at some point, otherwise gaps will appear. Will think on this more.
+    },
     numberOfEmployees: {
         type: Number,
         required: [true, 'clinic employees number required']

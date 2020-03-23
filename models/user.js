@@ -66,6 +66,11 @@ const userSchema = new MONGOOSE.Schema({
         type: Boolean,
         required: true
     },
+    //default false
+    isActive: {
+        type: Boolean,
+        required: true
+    },
     inventory: {
         type: Number,
         default: 0
