@@ -29,7 +29,7 @@ ROUTER.post('/login', (req, res) => {
     });
 });
 // POST /auth/signup
-ROUTER.get('/signup', (req, res) => {
+ROUTER.post('/signup', (req, res) => {
     // use email as the key until we've spoken with Nina
     // if email exists, user is already in the system. can create a failsafe for this
     DB.user.findOne({ email: req.body.email })
