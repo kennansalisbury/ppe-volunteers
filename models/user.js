@@ -40,6 +40,11 @@ const userSchema = new MONGOOSE.Schema({
         type: Number,
         required: [true, 'zipcode is required']
     },
+    region: {
+        type: String,
+        // required: [true, 'region is required'] - unsure how we implement this during the auth flow
+        // must be required at some point, otherwise gaps will appear. Will think on this more.
+    },
     // not required, set initial value to false on front end
     isProducer: {
         type: Boolean
@@ -53,10 +58,10 @@ const userSchema = new MONGOOSE.Schema({
     isAdmin: {
         type: Boolean
     },
-    // products: {
-    //     type: MONGOOSE.Schema.Types.ObjectId,
-    //     ref: 'Product'
-    // },
+    isDriver: {
+        type: Boolean,
+        required: true
+    },
     orders: {
         type: MONGOOSE.Schema.Types.ObjectId,
         ref: 'ProductOrder'
