@@ -64,12 +64,12 @@ const userSchema = new MONGOOSE.Schema({
     },
     isDriver: {
         type: Boolean,
-        required: true
+        default: false
     },
     //default false
     isActive: {
         type: Boolean,
-        required: true
+        default: false
     },
     inventory: {
         type: Number,

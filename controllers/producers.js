@@ -78,7 +78,7 @@ ROUTER.get('/:id', (req, res) => {
                 id: producer._id,
                 inventory: producer.inventory
             }
-            producer.region === req.headers['region'] ?  res.send(currentProducer) : res.status(403).send({message: 'Forbidden'})
+            producer.isActive && producer.region === req.headers['region'] ? res.send(currentProducer) : res.status(403).send({message: 'Forbidden'})
         }
         //if rq coming from driver, show id and address only
         else if(req.headers['isdriver'] === 'true') {
@@ -89,7 +89,7 @@ ROUTER.get('/:id', (req, res) => {
                 state: producer.state,
                 zipcode: producer.zipcode
             }
-            res.send(currentProducer)
+            producer.isActive ? res.send(currentProducer) : res.status(403).send({message: 'Forbidden'})
         }
     })
     .catch(err => {
@@ -101,8 +101,6 @@ ROUTER.get('/:id', (req, res) => {
 
 //PUT /producers/:id - update 1 producer
 ROUTER.put('/:id', (req, res) => {
-    //stub for testing route
-    // res.send('update 1 producer')
 
     //only can update a producer's inventory if requested by that producer or potentially if prodlead (need to search for user and determine region first)
     if(req.headers['isproducer'] === 'true' || req.headers['isprodlead'] === 'true') {
