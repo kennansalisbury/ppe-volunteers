@@ -42,9 +42,6 @@ ROUTER.get('/', (req, res) => {
 
 //GET /producers/:id - find 1 producer, show only necessary info for person viewing
 ROUTER.get('/:id', (req, res) => {
-    //stub for testing route
-    // res.send('find 1 producer')
-
     //req.headers from front end to include user the request is coming from
         //include type of user (i.e. isClinic, isAdmin etc.), user region and user id
     
