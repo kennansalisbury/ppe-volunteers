@@ -28,7 +28,7 @@ ROUTER.get('/', (req, res) => {
         else if(req.headers['isclinic'] === 'true') {
             let list = producers.filter(producer => producer.region === req.headers['region'])
             let data = list.map(producer => ({
-                id: producer._id,
+                _id: producer._id,
                 inventory: producer.inventory
             }))
             res.send(data)
@@ -80,7 +80,7 @@ ROUTER.get('/:id', (req, res) => {
         //if rq coming from driver, show id and address only
         else if(req.headers['isdriver'] === 'true') {
             currentProducer = {
-                id: producer._id,
+                _id: producer._id,
                 address: producer.address,
                 city: producer.city,
                 state: producer.state,
