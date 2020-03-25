@@ -113,7 +113,7 @@ ROUTER.put('/:id', (req, res) => {
                     {inventory: req.body.inventory} //may need to update this code based on how we have them update inventory
                 )
                 .then(updated => {
-                    res.send(updated) //front end will confirm if updated w/ response.n === 1
+                    res.send(updated) //front end will confirm if updated w/ response.nModified === 1
                 })
                 .catch(err => {
                     console.log('Error updating inventory', err)
