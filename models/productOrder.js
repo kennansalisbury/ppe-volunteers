@@ -4,7 +4,7 @@ const MONGOOSE = require('mongoose');
 const productOrderSchema = new MONGOOSE.Schema({
     producer: {
         type: MONGOOSE.Schema.Types.ObjectId,
-        ref: 'Producer'
+        ref: 'User'
     },
     clinic: {
         type: MONGOOSE.Schema.Types.ObjectId,

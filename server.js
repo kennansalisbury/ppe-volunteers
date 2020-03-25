@@ -30,7 +30,6 @@ APP.use('/auth', EXPRESS_JWT({
 //open routes for testing
 APP.use('/producers', require('./controllers/producers'));
 APP.use('/clinics', require('./controllers/clinics'));
-APP.use('/regions', require('./controllers/regions'));
 APP.use('/orders', require('./controllers/orders'));
 APP.use('/products', require('./controllers/products'));
 
