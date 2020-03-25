@@ -30,6 +30,7 @@ ROUTER.get('/', (req, res) => {
             let filtered = orders.filter(order => order.clinic.assignedUser._id.toString() === req.headers['id'])
             let data = filtered.map(order => {
                 return {
+                    _id: order._id,
                     producer: {
                         firstName: order.producer.firstName,
                         lastName: order.producer.lastName,
@@ -113,8 +114,9 @@ ROUTER.get('/:id', (req, res) => {
     .populate('clinic')
     .populate('products.product')
     .then(order => {
+
         //if admin, send all details
-        if(req.header['isadmin'] === 'true' ){
+        if(req.headers['isadmin'] === 'true' ){
             res.send(order)
         }
         //if prod lead view all info if for your region
@@ -122,9 +124,10 @@ ROUTER.get('/:id', (req, res) => {
             order.producer.region === req.headers['region'] ? res.send(order) : res.status(403).send({message: 'Forbidden'})
         }
 
-        //if clinic lead view all info except producer address info
+        //if clinic lead view all info except producer address info, only if you are the assigned clinic lead for the clinic on the order
         else if(req.headers['isclinic'] === 'true') {
             let data = {
+                _id: order._id,
                 producer: {
                     firstName: order.producer.firstName,
                     lastName: order.producer.lastName,
@@ -140,9 +143,13 @@ ROUTER.get('/:id', (req, res) => {
         }
 
 
-    //if active producer view orders you are fulfilling 
+    //if producer view order only if you are the producer on the order
     else if(req.headers['isproducer'] === 'true') {
         order.producer._id.toString() === req.headers['id'] ? res.send(order) : res.status(403).send({message: 'Forbidden'})
+    }
+
+    else {
+        res.status(403).send({message: 'Forbidden'})
     }
 
 
@@ -159,11 +166,77 @@ ROUTER.get('/:id', (req, res) => {
 
 //PUT /orders/:id - Update order (collected/delivered)
 ROUTER.put('/:id', (req, res) => {
-    res.send('update 1 order')
 
-    //if clinc lead in same region, can update all details
+    //if request coming from source other than admin, prodlead, producer, clinic - forbidden
+    if(req.headers['isadmin'] === 'false' && req.headers['isprodlead'] === 'false' && req.headers['isclinic'] === 'false' && req.headers['isproducer'] === 'false') {
+        res.status(403).send({message: 'Forbidden'})
+        return
+    }
 
-    //TO BE CONFIRMED - who/how updates whether it was collected/delivered
+    const updateOrder = (updates) => {
+        DB.ProductOrder.updateOne(
+            {_id: req.params.id},
+            updates
+        )
+        .then(updated => {
+            res.send(updated) //front end will confirm if updated w/ response.n === 1
+        })
+        .catch(err => {
+            console.log('Error updating order', err)
+            res.status(503).send('Internal server error')
+        })
+    }
+
+
+    DB.ProductOrder.findById(req.params.id)
+    .populate('producer')
+    .populate('clinic')
+    .populate('products.product')
+    .then(order => {
+
+        //if clinic lead in same region, can update product and quantity requested and whether it has been delivered
+        if(req.headers['isclinic'] === 'true' && req.headers['region'] === order.clinic.region) {
+            
+            updateOrder({
+                // products: req.body.products,
+                    products: [{
+                        product: req.body.product,
+                        quantity: req.body.quantity
+                    }],
+                    delivered: req.body.delivered
+                }
+            )
+        }
+
+        //if prod lead in same region, or admin, can update who the producer is, and if collected from producer
+        else if((req.headers['isprodlead'] === 'true' && req.headers['region'] === order.producer.region) || req.headers['isadmin'] === 'true' ) {
+            updateOrder({
+                   producer: req.body.producer,
+                   collected: req.body.collected
+                }
+            )
+        }
+
+        //if producer on order, can update when items have been collected 
+            //TO BE CONFIRMED - who/how updates whether it was collected/delivered
+
+        else if(req.headers['isproducer'] === 'true' && req.headers['id'] === order.producer._id.toString()) {
+            updateOrder({collected: req.body.collected})
+        }
+
+        //else forbidden?
+        else {
+            res.status(403).send({message: 'Forbidden'})
+        }
+
+    })
+    .catch(err => {
+        console.log('Error finding order', err)
+        res.status(503).send({message: 'Internal server error'})
+    }) 
+    
+
+
 
 })
 
