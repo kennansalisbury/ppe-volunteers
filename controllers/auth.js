@@ -5,9 +5,9 @@ const DB = require('../models');
 const ROUTER = require('express').Router();
 // POST /auth/login
 ROUTER.post('/login', (req, res) => {
-    console.log(req.body.username)
+    console.log(req.body.email)
     // check if username is in the system
-    DB.User.findOne({ username: req.body.username})
+    DB.User.findOne({ email: req.body.email})
     .then(user => {
         // confirm user and password exist
         if (!user || !user.password) {
