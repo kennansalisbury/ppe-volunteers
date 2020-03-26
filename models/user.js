@@ -71,10 +71,18 @@ const userSchema = new MONGOOSE.Schema({
         type: Boolean,
         default: false
     },
-    inventory: {
-        type: Number,
-        default: 0
-    },
+    inventory: [{
+        product: {
+            type: MONGOOSE.Schema.Types.ObjectId,
+            ref: 'Product',
+            required: [true, 'Product ordered is required']
+        },
+        quantity: {
+            type: Number,
+            required: [true, 'Product quantity is required'],
+            default: 0
+        }
+    }],
     orders: {
         type: MONGOOSE.Schema.Types.ObjectId,
         ref: 'ProductOrder'
