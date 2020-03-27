@@ -3,6 +3,8 @@ const ROUTER = require('express').Router();
 
 //GET /clinics - show all clinics
 ROUTER.get('/', (req, res) => {
+
+    console.log(req.headers)
     //if request coming from source other than any of our user types, forbidden
     if(req.headers['isadmin'] === 'false' && req.headers['isprodlead'] === 'false' && req.headers['isclinic'] === 'false' && req.headers['isdriver'] === 'false' && req.headers['isproducer'] === 'false') {
         res.status(403).send({message: 'Forbidden'})

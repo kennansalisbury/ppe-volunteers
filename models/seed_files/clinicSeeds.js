@@ -48,10 +48,11 @@ DB.User.find({isClinic: true})
         zipcode: clinic.zipcode,
         region: regionNames[(Math.floor(Math.random() * regionNames.length))],
         numberOfEmployees: Math.floor(Math.random() * 100),
-        assignedUser: userIds[Math.floor(Math.random() * userIds.length)],
+        assignedUser: `ObjectId('${userIds[Math.floor(Math.random() * userIds.length)]}')`,
         orders: null
     }))
 
-DB.Clinic.create(data).then(console.log('clinics seeded'))
+// DB.Clinic.create(data).then(console.log('clinics seeded'))
+console.log(data)
 
 })

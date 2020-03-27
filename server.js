@@ -28,13 +28,13 @@ APP.use('/producers', EXPRESS_JWT({
 }), require('./controllers/producers'))
 APP.use('/clinics', EXPRESS_JWT({
     secret: process.env.JWT_SECRET
-}), require('./controllers/producers'))
+}), require('./controllers/clinics'))
 APP.use('/orders', EXPRESS_JWT({
     secret: process.env.JWT_SECRET
-}), require('./controllers/producers'))
+}), require('./controllers/orders'))
 APP.use('/products', EXPRESS_JWT({
     secret: process.env.JWT_SECRET
-}), require('./controllers/producers'))
+}), require('./controllers/products'))
 
 //open routes for testing
 // APP.use('/producers', require('./controllers/producers'));

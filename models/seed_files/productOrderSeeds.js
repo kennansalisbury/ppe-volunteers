@@ -24,7 +24,8 @@ DB.User.find({isProducer: true})
             })
             )
             
-            DB.ProductOrder.create(data).then(console.log('orders seeded'))
+            // DB.ProductOrder.create(data).then(console.log('orders seeded'))
+            console.log(data.forEach(d => console.log(d.products)))
 
         })
 

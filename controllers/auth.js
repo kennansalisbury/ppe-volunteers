@@ -19,7 +19,7 @@ ROUTER.post('/login', (req, res) => {
             return res.status(406).send({ message: 'Invalid credentials.'});
         };
         let token = JWT.sign(user.toJSON(), process.env.JWT_SECRET, {
-            expiresIn: 60
+            expiresIn: 60 * 60 * 8
         });
         res.send({ token });
     })

@@ -26,4 +26,6 @@ let data = firstNames.map((name, index) => ({
     isActive: true
 }))
 
-DB.User.create(data).then(console.log('users seeded'))
+console.log(data)
+
+// DB.User.create(data).then(console.log('users seeded'))
