@@ -1,5 +1,5 @@
 const MONGOOSE = require('mongoose')
-const DB = require('..')
+let DB = require('..')
 
 let clinics = [{
     name: 'Richmond Pediatrics',
