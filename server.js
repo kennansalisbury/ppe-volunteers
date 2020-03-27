@@ -25,16 +25,16 @@ APP.use('/auth', EXPRESS_JWT({
 // protected routes
 APP.use('/producers', EXPRESS_JWT({
     secret: process.env.JWT_SECRET
-}).require('./controllers/producers'))
+}), require('./controllers/producers'))
 APP.use('/clinics', EXPRESS_JWT({
     secret: process.env.JWT_SECRET
-}).require('./controllers/producers'))
+}), require('./controllers/producers'))
 APP.use('/orders', EXPRESS_JWT({
     secret: process.env.JWT_SECRET
-}).require('./controllers/producers'))
+}), require('./controllers/producers'))
 APP.use('/products', EXPRESS_JWT({
     secret: process.env.JWT_SECRET
-}).require('./controllers/producers'))
+}), require('./controllers/producers'))
 
 //open routes for testing
 // APP.use('/producers', require('./controllers/producers'));
