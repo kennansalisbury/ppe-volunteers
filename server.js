@@ -42,6 +42,10 @@ APP.use('/products', EXPRESS_JWT({
 // APP.use('/orders', require('./controllers/orders'));
 // APP.use('/products', require('./controllers/products'));
 
+APP.get('/', (req, res) => {
+    res.send({message: 'Server running'})
+})
+
 // port set up
 APP.listen(process.env.PORT, () => {
     console.log(`Keeping it ${process.env.PORT}`)
