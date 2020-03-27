@@ -23,15 +23,24 @@ APP.use('/auth', EXPRESS_JWT({
     ]
 }), require('./controllers/auth'));
 // protected routes
-// APP.use('/producers', EXPRESS_JWT({
-//     secret: process.env.JWT_SECRET
-// }).require('./controllers/producers'))
+APP.use('/producers', EXPRESS_JWT({
+    secret: process.env.JWT_SECRET
+}).require('./controllers/producers'))
+APP.use('/clinics', EXPRESS_JWT({
+    secret: process.env.JWT_SECRET
+}).require('./controllers/producers'))
+APP.use('/orders', EXPRESS_JWT({
+    secret: process.env.JWT_SECRET
+}).require('./controllers/producers'))
+APP.use('/products', EXPRESS_JWT({
+    secret: process.env.JWT_SECRET
+}).require('./controllers/producers'))
 
 //open routes for testing
-APP.use('/producers', require('./controllers/producers'));
-APP.use('/clinics', require('./controllers/clinics'));
-APP.use('/orders', require('./controllers/orders'));
-APP.use('/products', require('./controllers/products'));
+// APP.use('/producers', require('./controllers/producers'));
+// APP.use('/clinics', require('./controllers/clinics'));
+// APP.use('/orders', require('./controllers/orders'));
+// APP.use('/products', require('./controllers/products'));
 
 // port set up
 APP.listen(process.env.PORT, () => {
